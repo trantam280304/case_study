@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img src="https://scontent.xx.fbcdn.net/v/t1.15752-9/357965253_495851076064734_7943226666293196027_n.png?stp=dst-png_p206x206&_nc_cat=110&cb=99be929b-59f725be&ccb=1-7&_nc_sid=aee45a&_nc_ohc=P0wX_uNGN5oAX9miy4t&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_AdQBX9VgHdOHImw1hvgmD6oczo90l5UrgiiGHZyE5RWzww&oe=64C8D0A2"
+        id="logo">
+    <h1>QUẢN LÝ SÂN BÓNG </h1>
+    <br>
+    <footer>
+        <div class="contact">
+            <a href="https://www.facebook.com/tranquangtam28/" target="_blank"><i
+                    class="fab fa-facebook-f"></i>Facebook</a>
+            <span class="phone-number">Liên hệ SDT: 091469575</span>
+        </div>
+    </footer>
+
+    <style>
+        .contact a {
+            color: white;
+            font-size: 20px;
+            margin-right: 10px;
+        }
+
+        .contact a i {
+            margin-right: 5px;
+        }
+    </style>
+    <div style="float: left;">
+        <table border="1" style="width: 700px; height: 500px">
+            <tr id="id1">
+                <th colspan="2"> Thông tin đặt sân </th>
+            </tr>
+            <tr>
+                <th>Họ tên</th>
+                <td><input type="text" id="fullname"></td>
+            </tr>
+            <tr>
+                <th>Ngày/tháng/năm</th>
+                <td><input type="date" id="date"></td>
+            </tr>
+            <tr>
+                <th>Thời gian </th>
+                <td><input type="text" id="time"></td>
+            </tr>
+            <tr>
+                <th>SDT</th>
+                <td><input type="number" id="phone"></td>
+            </tr>
+            <tr>
+                <th>Sân</th>
+                <td>
+                    <select id="mySelect">
+                        <option value="San 5">Sân 5 (250 VND)</option>
+                        <option value="San 7">Sân 7 (300 VND)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button style="background-color: rgb(50, 159, 205)" id="add" onclick="addSan()">Đăng ký</button>
+                    <button style="background-color: rgb(0, 255, 183)" id="edit" onclick="updateSan()">Sửa</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+    <div class="banghuongdan">
+        <ul id="banghienthi">
+            <li><img width="550" height="" src="1.png"></li>
+        </ul>
+    </div>
+
+    <script>
+        class San {
+            constructor(full_name, date, time, phone, san) {
+                this.full_name = full_name;
+                this.date = date;
+                this.time = time;
+                this.phone = phone;
+                this.san = san;
+            }
+        }
+
+        class SanManager {
+            constructor() {
+                this.sans = [];
+            }
+
+            addSan(san) {
+                this.sans.push(san);
+                this.showList();
+            }
+
+            deleteSan(id) {
+                this.sans.splice(id, 1);
+                this.showList();
+            }
+
+            editSan(id, full_name, date, time, phone, san) {
+                let sanToUpdate = this.sans[id];
+                sanToUpdate.full_name = full_name;
+                sanToUpdate.date = date;
+                sanToUpdate.time = time;
+                sanToUpdate.phone = phone;
+                sanToUpdate.san = san;
+                this.showList();
+            }
+
+            findSanById(id) {
+                return this.sans[id];
+            }
+
+            showList() {
+                let table = '<table style="border: 1px solid black; width: 700px; float: right;">' +
+                    '<tr>' +
+                    '<th style="font-size: 40px" colspan="8">Danh sách đăng ký </th>' +
+                    '</tr>' +
+                    '<tr>' +
+                    '<th>Họ và tên</th>' +
+                    '<th>Ngày/tháng/năm</th>' +
+                    '<th>Thời gian</th>' +
+                    '<th>SDT</th>' +
+                    '<th>Sân 5</th>' +
+                    '<th>Sân 7</th>' +
+                    '<th colspan="2">Quản lý</th>' +
+
+                    '</tr>';
+
+                for (let i = 0; i < this.sans.length; i++) {
+                    let san = this.sans[i];
+                    table += '<tr>';
+                    table += '<td>' + san.full_name + '</td>';
+                    table += '<td>' + san.date + '</td>';
+                    table += '<td>' + san.time + '</td>';
+                    table += '<td>' + san.phone + '</td>';
+                    if (san.san === 'San 5') {
+                        table += '<td>X</td><td></td>';
+                    } else {
+                        table += '<td></td><td>X</td>';
+                    }
+                    table += '<td><button onclick="editSan(' + i + ')">Sửa</button></td>';
+                    table += '<td><button onclick="deleteSan(' + i + ')">Hủy sân</button></td>';
+                    table += '</tr>';
+                }
+
+                table += '</table>';
+
+                // Thêm class cho bảng để tùy chỉnh CSS
+                table = '<div class="table-container">' + table + '</div>';
+
+                document.getElementById('banghienthi').innerHTML = table;
+            }
+        }
+
+        let manage = new SanManager();
+
+        function addSan() {
+            let full_name = document.getElementById('fullname').value;
+            let date = document.getElementById('date').value;
+            let time = document.getElementById('time').value;
+            let phone = document.getElementById('phone').value;
+            let san = document.getElementById('mySelect').value;
+
+            let newSan = new San(full_name, date, time, phone, san);
+            manage.addSan(newSan);
+            clear();
+        }
+
+        function clear() {
+            document.getElementById('fullname').value = '';
+            document.getElementById('date').value = '';
+            document.getElementById('time').value = '';
+            document.getElementById('phone').value = '';
+            document.getElementById('mySelect').value = 'San 5';
+        }
+
+        function deleteSan(id) {
+            manage.deleteSan(id);
+        }
+
+        function editSan(id) {
+            let san = manage.findSanById(id);
+            document.getElementById('fullname').value = san.full_name;
+            document.getElementById('date').value = san.date;
+            document.getElementById('time').value = san.time;
+            document.getElementById('phone').value = san.phone;
+            document.getElementById('mySelect').value = san.san;
+
+            document.getElementById('add').style.display = 'none';
+            document.getElementById('edit').style.display = 'inline-block';
+            document.getElementById('edit').setAttribute('data-id', id);
+        }
+
+        function updateSan() {
+            let id = document.getElementById('edit').getAttribute('data-id');
+            let full_name = document.getElementById('fullname').value;
+            let date = document.getElementById('date').value;
+            let time = document.getElementById('time').value;
+            let phone = document.getElementById('phone').value;
+            let san = document.getElementById('mySelect').value;
+
+            manage.editSan(id, full_name, date, time, phone, san);
+            clear();
+
+            document.getElementById('add').style.display = 'inline-block';
+            document.getElementById('edit').style.display = 'none';
+        }
+
+        manage.showList();
+    </script>
+    <link rel="stylesheet" href="../tam.css">
+</body>
+
+</html>
