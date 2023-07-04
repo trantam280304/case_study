@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function deleteNumberFromArray(arr, index) {
+            if (index < 0 || index > arr.lenght) {
+                return arr
+            } else {
+                let newArray = arr.slice();
+                newArray.splice(index, 1);
+                return newArray;
+            }
+
+        }
+        let myArray = [1, 2, 3, 4, 5];
+        console.log(deleteNumberFromArray(myArray, 2)); 
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Circle and Rectangle</title>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="800" height="400"></canvas>
+    <script>
+      class Circle {
+        constructor(x, y, ban_kinh, mau_sac) {
+          this.x = x;
+          this.y = y;
+          this.ban_kinh = ban_kinh;
+          this.color = mau_sac;
+        }
+
+        render(canvas) {
+          let ctx = canvas.getContext("2d");
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.ban_kinh, 0, 2 * Math.PI);
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      }
+      
+      class Rectangle {
+        constructor(x, y, width, height, color) {
+          this.x = x;
+          this.y = y;
+          this.width = width;
+          this.height = height;
+          this.color = color;
+        }
+
+        render(canvas) {
+          let ctx = canvas.getContext("2d");
+          ctx.fillStyle = this.color;
+          ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+      }
+
+      let canvas = document.getElementById("myCanvas");
+      let circle = new Circle(200, 150, 100, "#FF7433");
+      circle.render(canvas);
+
+      let rectangle = new Rectangle(150, 100, 100, 100, "#FF339F");
+      rectangle.render(canvas);
+    </script>
+  </body>
+</html> 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function findAvg(arr) {
+            let max = arr[0];
+            let soMax = arr[1];
+
+            for (let i = 1; i < arr.length; i++) {
+                if (arr[i] > max) {
+                    soMax = max;
+                    max = arr[i];
+                } else if (arr[i] > soMax) {
+                    soMax = arr[i];
+                }
+            }
+
+            return soMax;
+        }
+
+        let diem = [8, 10, 11, 10];
+        console.log(findAvg(diem))
+    </script>
+</body>
+
+</html>

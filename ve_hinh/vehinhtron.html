@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Thêm phần tử canvas vào trang HTML và đặt id cho nó -->
+<canvas id="myCanvas"></canvas>
+
+<script>
+// Lấy canvas element từ DOM
+const canvas = document.getElementById("myCanvas");
+
+// Lấy context 2D của canvas
+const ctx = canvas.getContext("2d");
+
+// Khai báo thông số của hình chữ nhật
+const x = 50;
+const y = 50;
+const width = 100;
+const height = 75;
+
+// Vẽ hình chữ nhật bằng phương thức fillRect
+ctx.fillStyle = "blue"; // Chọn màu sắc cho hình chữ nhật
+ctx.fillRect(x, y, width, height); // Vẽ hình chữ nhật tại vị trí (x,y)
+</script>
+
+</body>
+</html>
